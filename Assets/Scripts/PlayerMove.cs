@@ -29,6 +29,11 @@ public class PlayerMove : MonoBehaviour
 
     void GetInput()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
         float hAxis = Input.GetAxisRaw("Horizontal");
         float vAxis = Input.GetAxisRaw("Vertical");
         
