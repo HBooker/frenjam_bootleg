@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float velocity = 20.0f;
+    public float velocity = 10.0f;
     public Animator camAnim;
+    public float momentumDamping = 5.0f;
 
     private CharacterController control;
     private Vector3 inputVector;
@@ -23,33 +24,33 @@ public class PlayerMove : MonoBehaviour
     {
         GetInput();
         MovePlayer();
-        CheckForHeadBob();
-
         camAnim.SetBool("isWalking", isWalking);
     }
 
     void GetInput()
     {
-        inputVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
-        inputVector.Normalize();
-        inputVector = transform.TransformDirection(inputVector);
+        float hAxis = Input.GetAxisRaw("Horizontal");
+        float vAxis = Input.GetAxisRaw("Vertical");
+        
+        if (hAxis != 0.0f || vAxis != 0.0f)
+        {
+            inputVector = new Vector3(hAxis, 0.0f, vAxis);
+            inputVector.Normalize();
+            inputVector = transform.TransformDirection(inputVector);
+            isWalking = true;
+        }
+        else
+        {
+            // No input this frame, decelerate
+            inputVector = Vector3.Lerp(inputVector, Vector3.zero, momentumDamping * Time.deltaTime);
+            isWalking = false;
+        }
+
         movementVector = (inputVector * velocity) + (Vector3.up * gravity);
     }
 
     void MovePlayer()
     {
         control.Move(movementVector * Time.deltaTime);
-    }
-
-    void CheckForHeadBob()
-    {
-        if(control.velocity.magnitude > 0.1f)
-        {
-            isWalking = true;
-        }
-        else
-        {
-            isWalking = false;
-        }
     }
 }
