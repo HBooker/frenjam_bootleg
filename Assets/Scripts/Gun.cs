@@ -33,6 +33,9 @@ public class Gun : MonoBehaviour
 
     void Fire()
     {
+        GetComponent<AudioSource>().Stop();
+        GetComponent<AudioSource>().Play();
+
         foreach (var enemy in enemyManager.enemiesInTrigger)
         {
             Vector3 dir = enemy.transform.position - transform.position;
