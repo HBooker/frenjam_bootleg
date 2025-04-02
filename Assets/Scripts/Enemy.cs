@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public Material baseMaterial;
+    public Material highlightMaterial;
     public GameObject gunHitEffect;
     private EnemyManager enemyManager;
     private float enemyHealth = 2.0f;
@@ -26,5 +28,15 @@ public class Enemy : MonoBehaviour
     {
         Instantiate(gunHitEffect, transform.position, Quaternion.identity);
         enemyHealth -= damage;
+    }
+
+    public void Highlight()
+    {
+        GetComponent<MeshRenderer>().material = highlightMaterial;
+    }
+
+    public void DeHighlight()
+    {
+        GetComponent<MeshRenderer>().material = baseMaterial;
     }
 }

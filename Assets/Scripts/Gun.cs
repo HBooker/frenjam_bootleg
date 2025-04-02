@@ -35,13 +35,14 @@ public class Gun : MonoBehaviour
     {
         GetComponent<AudioSource>().Stop();
         GetComponent<AudioSource>().Play();
-
-        foreach (var enemy in enemyManager.enemiesInTrigger)
+        enemyManager.Print();
+        foreach (var (id, enemy) in enemyManager.enemiesInTrigger)
         {
             Vector3 dir = enemy.transform.position - transform.position;
             RaycastHit hit;
             if (Physics.Raycast(transform.position, dir, out hit, range * 1.5f, raycastLayerMask))
             {
+                Debug.DrawRay(transform.position, dir, Color.green);
                 if (hit.transform == enemy.transform)
                 {
                     float dist = Vector3.Distance(enemy.transform.position, transform.position);
@@ -67,7 +68,7 @@ public class Gun : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Enemy enemy = other.GetComponent<Enemy>();
-
+        
         if (enemy != null)
         {
             enemyManager.AddEnemy(enemy);

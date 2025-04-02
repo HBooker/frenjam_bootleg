@@ -18,9 +18,9 @@ public class EnemyAwareness : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Player"))
-        {
-            GetComponent<MeshRenderer>().material = aggroMat;
-        }
+        //if (other.transform.CompareTag("Player"))
+        //{
+        //    GetComponent<MeshRenderer>().material = aggroMat;
+        //}
     }
 }
