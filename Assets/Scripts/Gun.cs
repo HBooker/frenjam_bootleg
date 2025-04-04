@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public float range = 20.0f;
-    public float verticalRange = 20.0f;
+    public Animator weaponAnim;
+    public float range = 5.0f;
+    public float verticalRange = 5.0f;
     public EnemyManager enemyManager;
     public float fireRate = 1.0f;
     public float smallDamage = 1.0f;
@@ -27,6 +28,8 @@ public class Gun : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && Time.time > nextTimeToFire)
         {
+            //weaponAnim.Play("FistsPunch");
+            weaponAnim.SetTrigger("Punch");
             Fire();
         }
     }

@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     public void Highlight()
     {
-        GetComponent<MeshRenderer>().material = highlightMaterial;
+        //GetComponent<MeshRenderer>().material = highlightMaterial;
     }
 
     public void DeHighlight()
